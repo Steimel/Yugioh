@@ -1,0 +1,173 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.css">
+    <script>
+        function getAmount()
+        {
+            var elem = document.getElementById("amount");
+            return parseInt(elem.value);
+        }
+    
+        function add(player)
+        {
+            var elem = document.getElementById(player);
+            var currentLife = parseInt(elem.innerHTML);
+            currentLife = currentLife + getAmount();
+            elem.innerHTML = currentLife;
+            adjustBar(player);
+        }
+        
+        function sub(player)
+        {
+            var elem = document.getElementById(player);
+            var currentLife = parseInt(elem.innerHTML);
+            currentLife = currentLife - getAmount();
+            elem.innerHTML = currentLife;
+            adjustBar(player);
+        }
+        
+        function set(player)
+        {
+            var elem = document.getElementById(player);
+            var currentLife = getAmount();
+            elem.innerHTML = currentLife;
+            adjustBar(player);
+        }
+        
+        function adjustBar(player)
+        {
+            var elem = document.getElementById(player);
+            var currentLife = parseInt(elem.innerHTML);
+            if(currentLife >= 8000)
+            {
+                elem.style.width = "100%";
+            }
+            else if(currentLife <= 0)
+            {
+                elem.style.width = "0%";
+            }
+            else
+            {
+                elem.style.width = "" + ((currentLife / 8000) * 100) + "%";
+            }
+        }
+        
+        function coinFlip()
+        {
+            var elem = document.getElementById("coin_die");
+            
+            elem.innerHTML = "Flipping...";
+            setTimeout(completeFlip, 1000);
+        }
+        
+        function completeFlip()
+        {
+            var elem = document.getElementById("coin_die");
+            
+            if(Math.random()<0.5)
+            {
+                elem.innerHTML = '<img src="img/tails.jpg" />';
+            }
+            else
+            {
+                elem.innerHTML = '<img src="img/heads.jpg" />';
+            }
+        }
+        
+        function dieRoll()
+        {
+            var elem = document.getElementById("coin_die");
+            
+            elem.innerHTML = "Rolling...";
+            setTimeout(completeRoll, 1000);
+        }
+        
+        function completeRoll()
+        {
+            var elem = document.getElementById("coin_die");
+            
+            var roll = Math.random() * 6;
+            
+            if(roll < 1)
+            {
+                elem.innerHTML = '<img src="img/die1.png" />';
+            }
+            else if(roll < 2)
+            {
+                elem.innerHTML = '<img src="img/die2.png" />';
+            }
+            else if(roll < 3)
+            {
+                elem.innerHTML = '<img src="img/die3.png" />';
+            }
+            else if(roll < 4)
+            {
+                elem.innerHTML = '<img src="img/die4.png" />';
+            }
+            else if(roll < 5)
+            {
+                elem.innerHTML = '<img src="img/die5.png" />';
+            }
+            else
+            {
+                elem.innerHTML = '<img src="img/die6.png" />';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="bs-example">
+        <div class="jumbotron">
+            <table>
+              <tr>
+              <td>
+              <h3>Player 1:</h3>
+              </td>
+              <td width=10%></td>
+              <td>
+                <h3>Player 2:</h3>
+              </td>
+          </tr>
+            <tr>
+            <td width=300px>
+            <div class="progress progress-success" style="margin-bottom: 9px;">  
+                <div class="bar" id="player1" style="width: 100%">8000</div>
+             </div> 
+            </td>
+            <td>
+            </td>
+            <td width=300px>
+                <div class="progress progress-success" style="margin-bottom: 9px;">  
+                <div class="bar" id="player2" style="width: 100%">8000</div>
+             </div> 
+            </td>
+            </tr>
+            </table>
+            <br>
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            &nbsp&nbsp&nbsp&nbsp&nbsp
+             <div class="btn-group">
+                <button type="button" class="btn btn-default" onclick='set("player1");'>Set</button>
+                <button type="button" class="btn btn-default" onclick='add("player1");'>+</button>
+                <button type="button" class="btn btn-default" onclick='sub("player1");'>-</button>
+            </div>
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <input type="text" id="amount" />
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <div class="btn-group">
+                <button type="button" class="btn btn-default" onclick='set("player2");'>Set</button>
+                <button type="button" class="btn btn-default" onclick='add("player2");'>+</button>
+                <button type="button" class="btn btn-default" onclick='sub("player2");'>-</button>
+            </div>
+            <br><br>
+            <div class="btn-group btn-group-lg">
+                <button type="button" class="btn btn-default" onclick='coinFlip();'>Coin Flip</button>
+                <button type="button" class="btn btn-default" onclick='dieRoll();'>Die Roll</button>
+            </div>
+            <br><br>
+            <div id="coin_die">
+            </div>
+        </div>
+        </div>
+    </div>
+</body>
