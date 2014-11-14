@@ -32,6 +32,16 @@
             elem.innerHTML = currentLife;
             adjustBar(player);
         }
+		
+		function reset()
+		{
+			var elem1 = document.getElementById('player1');
+			var elem2 = document.getElementById('player2');
+			elem1.innerHTML = 8000;
+			elem2.innerHTML = 8000;
+			adjustBar('player1');
+			adjustBar('player2');
+		}
         
         function adjustBar(player)
         {
@@ -163,6 +173,7 @@
             <div class="btn-group btn-group-lg">
                 <button type="button" class="btn btn-default" onclick='coinFlip();'>Coin Flip</button>
                 <button type="button" class="btn btn-default" onclick='dieRoll();'>Die Roll</button>
+				<button type="button" class="btn btn-default" onclick='reset();'>Reset</button>
             </div>
             <br><br>
             <div id="coin_die">
