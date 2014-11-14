@@ -1,51 +1,53 @@
 <head>
     <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.css">
     <script>
-        function getAmount()
+        function getCustomAmount()
         {
             var elem = document.getElementById("amount");
             return parseInt(elem.value);
         }
     
-        function add(player)
+        function addCustom(player)
         {
-            var elem = document.getElementById(player);
-            var currentLife = parseInt(elem.innerHTML);
-            currentLife = currentLife + getAmount();
-            elem.innerHTML = currentLife;
-            adjustBar(player);
+			add(player, getCustomAmount());
         }
         
-        function sub(player)
+        function subCustom(player)
         {
-            var elem = document.getElementById(player);
-            var currentLife = parseInt(elem.innerHTML);
-            currentLife = currentLife - getAmount();
-            elem.innerHTML = currentLife;
-            adjustBar(player);
+            add(player, -1 * getCustomAmount());
         }
+		
+		function add(player, amount)
+		{
+			set(player, getCurrentLife(player) + amount);
+		}
+		
+		function getCurrentLife(player)
+		{
+			return parseInt(document.getElementById('player' + player).innerHTML);
+		}
+		
+		function set(player, life)
+		{
+			var elem = document.getElementById('player' + player);
+			elem.innerHTML = life;
+			adjustBar(player);
+		}
         
-        function set(player)
+        function setCustom(player)
         {
-            var elem = document.getElementById(player);
-            var currentLife = getAmount();
-            elem.innerHTML = currentLife;
-            adjustBar(player);
+			set(player, getCustomAmount());
         }
 		
 		function reset()
 		{
-			var elem1 = document.getElementById('player1');
-			var elem2 = document.getElementById('player2');
-			elem1.innerHTML = 8000;
-			elem2.innerHTML = 8000;
-			adjustBar('player1');
-			adjustBar('player2');
+			set(1, 8000);
+			set(2, 8000);
 		}
         
         function adjustBar(player)
         {
-            var elem = document.getElementById(player);
+            var elem = document.getElementById('player' + player);
             var currentLife = parseInt(elem.innerHTML);
             if(currentLife >= 8000)
             {
@@ -139,14 +141,14 @@
               </td>
           </tr>
             <tr>
-            <td width=300px>
+            <td width=400px>
             <div class="progress progress-success" style="margin-bottom: 9px;">  
                 <div class="bar" id="player1" style="width: 100%">8000</div>
              </div> 
             </td>
             <td>
             </td>
-            <td width=300px>
+            <td width=400px>
                 <div class="progress progress-success" style="margin-bottom: 9px;">  
                 <div class="bar" id="player2" style="width: 100%">8000</div>
              </div> 
@@ -154,20 +156,24 @@
             </tr>
             </table>
             <br>
-            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-            &nbsp&nbsp&nbsp&nbsp&nbsp
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            
              <div class="btn-group">
-                <button type="button" class="btn btn-default" onclick='set("player1");'>Set</button>
-                <button type="button" class="btn btn-default" onclick='add("player1");'>+</button>
-                <button type="button" class="btn btn-default" onclick='sub("player1");'>-</button>
+				<button type="button" class="btn btn-default" onclick='add(1,100);'>+100</button>
+                <button type="button" class="btn btn-default" onclick='add(1,-100);'>-100</button>
+                <button type="button" class="btn btn-default" onclick='setCustom(1);'>Set</button>
+                <button type="button" class="btn btn-default" onclick='addCustom(1);'>+</button>
+                <button type="button" class="btn btn-default" onclick='subCustom(1);'>-</button>
             </div>
             &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-            <input type="text" id="amount" />
+            <input type="text" id="amount" value='100' />
             &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
             <div class="btn-group">
-                <button type="button" class="btn btn-default" onclick='set("player2");'>Set</button>
-                <button type="button" class="btn btn-default" onclick='add("player2");'>+</button>
-                <button type="button" class="btn btn-default" onclick='sub("player2");'>-</button>
+				<button type="button" class="btn btn-default" onclick='add(2,100);'>+100</button>
+                <button type="button" class="btn btn-default" onclick='add(2,-100);'>-100</button>
+                <button type="button" class="btn btn-default" onclick='setCustom(2);'>Set</button>
+                <button type="button" class="btn btn-default" onclick='addCustom(2);'>+</button>
+                <button type="button" class="btn btn-default" onclick='subCustom(2);'>-</button>
             </div>
             <br><br>
             <div class="btn-group btn-group-lg">
